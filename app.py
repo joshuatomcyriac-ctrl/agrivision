@@ -1,5 +1,4 @@
 import os
-import gdown
 import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
@@ -14,7 +13,7 @@ def load_optimized_model():
     dropbox_url = 'https://www.dropbox.com/scl/fi/tuys7fh7cno146u02n785/tomato_model.h5?rlkey=hbdbds81w6qwrsdi0a6pavsra&st=0l6jgxqv&dl=1'
     
     if not os.path.exists(model_path):
-        with st.status("Downloading model from secondary vault...", expanded=True) as status:
+        with st.status("Downloading model...", expanded=True) as status:
             try:
                 import urllib.request
                 urllib.request.urlretrieve(dropbox_url, model_path)
@@ -22,12 +21,12 @@ def load_optimized_model():
             except Exception as e:
                 st.error(f"Vault Connection Error: {e}")
                 return None
-                
+
+    # THESE LINES MUST START AT THE SAME LEVEL AS THE 'if' ABOVE
     try:
         return tf.keras.models.load_model(model_path, compile=False)
     except Exception as e:
         st.error(f"Model Loading Error: {e}")
         return None
-
 # Load the model
 model = load_optimized_model()
