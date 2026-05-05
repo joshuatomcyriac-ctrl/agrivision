@@ -13,14 +13,14 @@ def load_optimized_model():
     dropbox_url = 'https://www.dropbox.com/scl/fi/tuys7fh7cno146u02n785/tomato_model.h5?rlkey=hbdbds81w6qwrsdi0a6pavsra&st=0l6jgxqv&dl=1'
     
     if not os.path.exists(model_path):
-        with st.status("Downloading model...", expanded=True) as status:
-            try:
-                import urllib.request
-                urllib.request.urlretrieve(dropbox_url, model_path)
-                status.update(label="Model downloaded successfully!", state="complete")
-            except Exception as e:
-                st.error(f"Vault Connection Error: {e}")
-                return None
+    # ... all your download code ...
+
+# MOVE THESE LINES TO THE LEFT
+try:
+    return tf.keras.models.load_model(model_path, compile=False)
+except Exception as e:
+    st.error(f"Error: {e}")
+    return None
 
     # THESE LINES MUST START AT THE SAME LEVEL AS THE 'if' ABOVE
     try:
