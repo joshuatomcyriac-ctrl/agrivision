@@ -93,7 +93,7 @@ st.markdown("""
 @st.cache_resource
 def load_noir_engine():
     path = 'tomato_model.h5'
-    url = 'https://www.dropbox.com/scl/fi/tuys7fh7cno146u02n785/tomato_model.h5?rlkey=hbdbds81w6qwrsdi0a6pavsra&st=ol6jgxqv&dl=1'
+    url = 'https://www.dropbox.com/scl/fi/irspecuqn4rinwpyynv1m/tomato_guardian_v2.h5?rlkey=le4e2l034zw860k3mg9ljtvyx&st=t7fcan68&dl=1'
     if not os.path.exists(path):
         with st.status("Establishing Secure Connection...", expanded=False):
             import urllib.request
@@ -147,8 +147,13 @@ elif page == "LAB":
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
                 rescale = np.asarray(prep)[np.newaxis,...]
                 preds = model.predict(rescale)
-                classes = ['Bacterial Spot', 'Early Blight', 'Late Blight', 'Leaf Mold', 'Septoria Spot', 'Spider Mites', 'Target Spot', 'Yellow Leaf Curl', 'Mosaic Virus', 'Healthy']
-                idx = np.argmax(preds)
+        	
+        classes = [
+            'Bacterial Spot', 'Early Blight', 'Late Blight', 'Leaf Mold',
+            'Septoria Spot', 'Spider Mites', 'Target Spot',
+            'Yellow Leaf Curl', 'Mosaic Virus', 'Healthy'
+        ]
+        idx = np.argmax(preds)
                 conf = np.max(preds) * 100
                 st.markdown(f"<div style='background:#FFB300; color:000000; padding:40px; text-align:center;'><h1 style='color:black !important; margin:0;'>{classes[idx]}</h1><p style='color:black !important;'>CONFIDENCE: {conf:.2f}%</p></div>", unsafe_allow_html=True)
 
