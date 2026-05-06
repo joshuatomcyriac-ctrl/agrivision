@@ -133,22 +133,22 @@ if page == "HOME":
 elif page == "LAB":
     st.markdown("<h1 style='color:#FFB300 !important;'>DIAGNOSTIC LAB</h1>", unsafe_allow_html=True)
     model = load_noir_engine()
-    
+
     st.markdown('<div class="terminal-box">', unsafe_allow_html=True)
     file = st.file_uploader("DROP SPECIMEN FOR ANALYSIS", type=["jpg", "png", "jpeg"])
     st.markdown('</div>', unsafe_allow_html=True)
-    
-if file:
+
+    # THIS BLOCK MUST BE INDENTED TO BE INSIDE "elif page == 'LAB':"
+    if file:
         img = Image.open(file)
         st.image(img, width=500)
-        
-if st.button("RUN NEURAL SCAN"):
+	if st.button("RUN NEURAL SCAN"):
             with st.spinner("Analyzing..."):
                 size = (224, 224)
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
                 rescale = np.asarray(prep)[np.newaxis, ...]
                 
-                # Single prediction line
+                # Predict using the new 9.1MB model
                 preds = model.predict(rescale)
                 
                 classes = [
