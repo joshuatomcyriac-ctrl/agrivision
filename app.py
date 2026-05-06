@@ -138,25 +138,35 @@ elif page == "LAB":
     file = st.file_uploader("DROP SPECIMEN FOR ANALYSIS", type=["jpg", "png", "jpeg"])
     st.markdown('</div>', unsafe_allow_html=True)
     
-    if file:
+if file:
         img = Image.open(file)
         st.image(img, width=500)
-        if st.button("RUN NEURAL SCAN"):
+        
+if st.button("RUN NEURAL SCAN"):
             with st.spinner("Analyzing..."):
                 size = (224, 224)
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
-                rescale = np.asarray(prep)[np.newaxis,...]
+                rescale = np.asarray(prep)[np.newaxis, ...]
+                
+                # Single prediction line
                 preds = model.predict(rescale)
-        	
-        classes = [
-            'Bacterial Spot', 'Early Blight', 'Late Blight', 'Leaf Mold',
-            'Septoria Spot', 'Spider Mites', 'Target Spot',
-            'Yellow Leaf Curl', 'Mosaic Virus', 'Healthy'
-        ]
-        idx = np.argmax(preds)
+                
+                classes = [
+                    'Bacterial Spot', 'Early Blight', 'Late Blight', 'Leaf Mold',
+                    'Septoria Spot', 'Spider Mites', 'Target Spot',
+                    'Yellow Leaf Curl', 'Mosaic Virus', 'Healthy'
+                ]
+                
+                idx = np.argmax(preds)
                 conf = np.max(preds) * 100
-                st.markdown(f"<div style='background:#FFB300; color:000000; padding:40px; text-align:center;'><h1 style='color:black !important; margin:0;'>{classes[idx]}</h1><p style='color:black !important;'>CONFIDENCE: {conf:.2f}%</p></div>", unsafe_allow_html=True)
-
+                
+                # Result display with high-contrast styling
+                st.markdown(f"""
+                    <div style='background:#FFB300; padding:40px; text-align:center;'>
+                        <h1 style='color:black !important; margin:0;'>{classes[idx]}</h1>
+                        <p style='color:black !important; font-weight:bold;'>CONFIDENCE: {conf:.2f}%</p>
+                    </div>
+                """, unsafe_allow_html=True)
 # --- PAGE 3: ARCHIVE ---
 elif page == "ARCHIVE":
     st.markdown("<h1 style='color:#FFB300 !important;'>PATHOLOGY ARCHIVE</h1>", unsafe_allow_html=True)
