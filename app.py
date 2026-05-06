@@ -142,7 +142,7 @@ elif page == "LAB":
     if file:
         img = Image.open(file)
         st.image(img, width=500)
-	if st.button("RUN NEURAL SCAN"):
+if st.button("RUN NEURAL SCAN"):
             with st.spinner("Analyzing..."):
                 size = (224, 224)
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
