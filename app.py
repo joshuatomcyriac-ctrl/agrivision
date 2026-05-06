@@ -158,8 +158,8 @@ if st.button("RUN NEURAL SCAN"):
                 
                 idx = np.argmax(preds)
                 conf = np.max(preds) * 100
-		if conf < 50:
-                    st.warning("⚠️ **Low Confidence Scan:** The model is unsure. Please ensure the leaf is well-lit, centered, and against a plain background for better accuracy.")
+if conf < 50:
+	st.warning("⚠️ **Low Confidence Scan:** The model is unsure. Please ensure the leaf is well-lit, centered, and against a plain background for better accuracy.")
                 
                 # Result display with high-contrast styling
                 st.markdown(f"""
