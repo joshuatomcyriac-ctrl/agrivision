@@ -148,7 +148,7 @@ elif page == "LAB":
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
                 rescale = np.asarray(prep)[np.newaxis, ...]
                 
-                # Predict using the new 9.1MB model
+                # Predict using the new 9.1MB model (91.27% Accuracy)
                 preds = model.predict(rescale)
                 
                 classes = [
