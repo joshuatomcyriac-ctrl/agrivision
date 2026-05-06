@@ -144,7 +144,7 @@ elif page == "LAB":
         st.image(img, width=500)
 if st.button("RUN NEURAL SCAN"):
             with st.spinner("Analyzing..."):
-                size = (224, 224)
+                size = (299, 299)
                 prep = ImageOps.fit(img, size, Image.LANCZOS)
                 rescale = np.asarray(prep)[np.newaxis, ...].astype(np.float32) / 255.0                
                 # Predict using the new 9.1MB model (91.27% Accuracy)
